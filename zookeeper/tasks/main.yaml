@@ -17,14 +17,12 @@
     path: /home/ansible/kafka_2.13-3.4.0
   register: folder_status
 
-
 - name: untar kafka file 
   unarchive:
     src: /home/ansible/kafka_2.13-3.4.0.tgz
     dest: /home/ansible/
     remote_src: true
   when: folder_status.stat.exists == false
-
 
 - name: create directory 
   file:
@@ -49,4 +47,5 @@
   - {server: "server2",id: 2}
   - {server: "server3",id: 3}
   
-  
+- name: run zookeeper
+  shell: ./home/ansible/kafka_2.13-3.4.0//bin/zookeeper-server-start.sh -daemon   /home/ansible/kafka_2.13-3.4.0/config/zookeeper.properties
